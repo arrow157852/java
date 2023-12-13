@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ddca7399-4d8e-447a-ab57-70173caa361b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../guanabara/aula05/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../guanabara/aula05/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guanabara/aula05/src/main/java/org/example/Aula05.java" beforeDir="false" afterPath="$PROJECT_DIR$/../guanabara/aula05/src/main/java/org/example/Aula05.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guanabara/aula05/src/main/java/org/example/ContaBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/../guanabara/aula05/src/main/java/org/example/ContaBanco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/SuperChoque200.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SuperChoque200.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/superchoque200.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/src/main/java/org/example/DBConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/src/main/java/org/example/DadosPlanilha.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/src/main/java/org/example/DatabaseOperations.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefoda/src/main/java/org/example/Pergutas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/src/MySQLConnector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/src/ServicoCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../superchoquefodase/superchoquefodase.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/untitled.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2ZUwwf8Kj1qxWEO4eYbigRNiRst" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ddca7399-4d8e-447a-ab57-70173caa361b" name="Changes" comment="" />
+      <created>1702490207031</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702490207031</updated>
+    </task>
+    <servers />
+  </component>
+</project>

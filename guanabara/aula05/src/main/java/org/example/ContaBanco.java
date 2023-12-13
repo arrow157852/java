@@ -1,6 +1,7 @@
 package org.example;
 
 import java.math.MathContext;
+import java.util.Objects;
 
 public class ContaBanco {
     public int numConta;
@@ -9,23 +10,33 @@ public class ContaBanco {
     private float saldo;
     private boolean status;
 
+    public void  estado(){
+        System.out.println("-----------------------------------------");
+        System.out.println("Numero da conta:"+this.getNumConta());
+        System.out.println("Tipo:"+ this.getTipo());
+        System.out.println("Dono"+this.getDono());
+        System.out.println("Saldo: R$ "+this.getSaldo());
+        System.out.println("Status: " +this.getStatus());
+    }
+
     public ContaBanco() {
         this.setStatus(false);
         this.setSaldo(0);
     }
 
-    public void abrirConta(){
-        setStatus(true);
+    public void abrirConta(String tipo){
+        this.setTipo(tipo);
+        this.setStatus(true);
 
-        if (this.getTipo()== contaCorrente){
+        if (Objects.equals(tipo, "cc")){
             this.setSaldo(50);
-        } else if (this.getTipo()== contaPoupanca) {
+        } else if (Objects.equals(this.getTipo(), "cp")) {
             this.setSaldo(150);
         }else {
 
             do {
                 System.out.println("digite uma opção valida");
-            }while (this.getTipo()!= contaCorrente  || this.getTipo()!= contaPoupanca);
+            }while (this.getTipo()!= "cc"  || this.getTipo()!= "cp");
 
         }
         System.out.println("você abriu sua conta "+ this.getTipo());
@@ -43,27 +54,34 @@ public class ContaBanco {
             }
         }
         this.setStatus(false);
+        System.out.println("conta fechada com suceso");
     }
 
 
 
 
-    public void depositar(){
-        if(this.getStatus() == true) {
-            this.setSaldo(this.getSaldo() + deposito);
+    public void depositar(float v){
+        if(this.getStatus()) {
+            this.setSaldo(this.getSaldo() + v);
+            System.out.println("deposito relizado na conta de"+ this.getDono());
+        }else {
+            System.out.println("não é possivel realizar deposito em uma conta inexistente");
         }
-
     }
-    public void sacar(){
-        if(this.getStatus() && this.getSaldo() > 0)  {
-            this.setSaldo(this.getSaldo()  - saque);
+    public void sacar(float v){
+        if(this.getStatus() && this.getSaldo() >= v)  {
+            this.setSaldo(this.getSaldo()  - v);
+            System.out.println("saque relizado na conta de"+ this.getDono());
+
+        }else {
+            System.out.println("não é possivel realizar sque saldo insufuciente");
         }
 
     }
     public void pagarMensal(){
-        if (this.getTipo() == contaCorrente){
+        if (Objects.equals(this.getTipo(), "cc")){
             this.setSaldo(this.getSaldo()-12);
-        } else if (this.getTipo() == contaPoupaca) {
+        } else if (Objects.equals(this.getTipo(), "cp")) {
             this.setSaldo(this.getSaldo()-20);
         }
 
