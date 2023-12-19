@@ -121,6 +121,7 @@ public class Lutador implements possibilidades {
         System.out.println("Ganhou: "+this.getVitorias());
         System.out.println("Perdeu: "+this.getDerrotas());
         System.out.println("Empatou: "+this.getEmpates());
+        System.out.println("------------------------------------------");
 
     }
 

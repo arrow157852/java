@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Random;
+
 public class Luta {
     private Lutador desafiado;
     private Lutador desafiante;
@@ -22,7 +24,36 @@ public class Luta {
     }
     public void lutar(){
         if (this.isAprovada()){
-            
+
+            System.out.println("### Desafiado ###");
+            this.getDesafiado().apresentar();
+            System.out.println("###Desafiante###");
+            this.getDesafiante().apresentar();
+
+            Random aleatorio =new Random();
+            int vencedor= aleatorio.nextInt(3);
+            switch (vencedor){
+                case 0 :
+                    System.out.println("Empatou");
+                    this.getDesafiado().empatarLuta();
+                    this.getDesafiante().empatarLuta();
+                    break;
+                case 1:
+                    System.out.println("Vitoria do " +this.getDesafiado().getNome());
+                    this.getDesafiado().ganharLuta();
+                    this.getDesafiante().perderLuta();
+                    break;
+                case 2:
+                    System.out.println("Vitoria do " +this.getDesafiante().getNome());
+                    this.getDesafiado().perderLuta();
+                    this.getDesafiante().ganharLuta();
+                    break;
+            }
+
+        }else {
+            System.out.println("a luta não pode acontecer!");
+
+
         }
 
     }
