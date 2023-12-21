@@ -1,10 +1,13 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Calculadora {
     private Scanner scan = new Scanner(System.in);
-    private Dao dao = new Dao();
+
+    ArrayList<Float> resultados = new ArrayList<Float>();
+    Dao dao = new Dao();
 
     private int nivelDeProtecao;
     private String edificacao;
@@ -76,6 +79,18 @@ public class Calculadora {
             double diasDescidas = ((barra * 6) / 48);
             double diasAterramento = (diasDescidas / 6);
             double diasProtecaoMecanica = (diasDescidas / 6);
+
+            dao.realizarConsulta(9);
+            resultados.add((float) (quantDescidas*2));
+            dao.realizarConsulta(17);
+            resultados.add((float)(quantAnel+1));
+            dao.realizarConsulta(24);
+            resultados.add((float)(quantDescidas*2));
+
+
+
+
+
 
 
 

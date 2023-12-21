@@ -16,7 +16,7 @@ public class Dao {
     }
 
     public void realizarConsulta(int id) {
-        String sql = "SELECT material, valor_unidade FROM planilha WHERE id = ?";
+        String sql = "SELECT material, valor_unitario FROM planilha WHERE id = ?";
 
         try (Connection conn = database.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
@@ -28,7 +28,9 @@ public class Dao {
                 while (rs.next()) {
                     // Define os valores dos campos
                     this.setMaterial(rs.getString("material"));
-                    this.setValorUnidade(rs.getFloat("valor_unidade"));
+                    this.setValorUnidade(rs.getFloat("valor_unitario"));
+
+
 
 
                 }
