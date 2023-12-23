@@ -1,18 +1,23 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Calculadora {
     private Scanner scan = new Scanner(System.in);
 
-    ArrayList<Float> resultados = new ArrayList<Float>();
-    Dao dao = new Dao();
+    private ArrayList<Float> resultados = new ArrayList<>();
+    private ArrayList<Float> valor = new ArrayList<>();
+    private List<Integer> indices;
+    private Dao dao = new Dao();
 
-    private int nivelDeProtecao;
+    private int nivelDeProtecao, pontosAterramento, blocos;
     private String edificacao;
-    private String blocos, material;
+    private String material, servico;
     private float perimetro, altura, perimetroCaptor;
+    private double quantDescidas, quantAnel, barra, diasCaptor, diasAnel, diasDescidas, diasAterramento, diasProtecaoMecanica, aliquota;
 
     public Calculadora() {
         // Adicione um construtor se necessário
@@ -20,7 +25,13 @@ public class Calculadora {
 
     public void perguntas() {
         System.out.println("Qual o serviço a ser realizado?");
-        String servico = scan.nextLine();
+        servico = scan.nextLine();
+        if (servico.equalsIgnoreCase("aterramento") || servico.equalsIgnoreCase("spda")) {
+            System.out.println("Qual o material a ser usado?");
+            material = scan.nextLine();
+        }
+        System.out.println("Qual o aliquota?");
+        aliquota = scan.nextDouble();
 
         if (servico.equalsIgnoreCase("SPDA")) {
             System.out.println("Qual a altura da edificação?");
@@ -31,26 +42,23 @@ public class Calculadora {
             perimetroCaptor = scan.nextFloat();
             System.out.println("Qual o nível de proteção?");
             nivelDeProtecao = scan.nextInt();
-            System.out.println("Qual o material a ser usado?");
-            material = scan.next();
+
         } else if (servico.equalsIgnoreCase("laudo")) {
             System.out.println("São blocos ou outros?");
-            edificacao = scan.nextLine();
+            edificacao = scan.next();
             if (edificacao.equalsIgnoreCase("blocos")) {
                 System.out.println("Quantos blocos são?");
-                blocos = scan.nextLine();
+                blocos = scan.nextInt();
             } else if (edificacao.equalsIgnoreCase("outros")) {
                 System.out.println("Entre com o perímetro da edificação");
-                blocos = scan.nextLine();
+                perimetro = scan.nextFloat();
             }
         } else if (servico.equalsIgnoreCase("aterramento")) {
             System.out.println("Entre com o perímetro do aterramento");
             perimetro = scan.nextFloat();
             System.out.println("Entre com a quantidade de pontos de aterramento");
-            int pontosAterramento = scan.nextInt();
+            pontosAterramento = scan.nextInt();
             scan.nextLine();  // Consumir a quebra de linha pendente
-            System.out.println("Qual o material a ser usado?");
-            material = scan.nextLine();
         }
     }
 
@@ -69,35 +77,146 @@ public class Calculadora {
             distCaptor = 20;
         }
 
-        if (material.equalsIgnoreCase("barra chata")) {
-            double quantDescidas = Math.ceil(perimetro / distDescida);
-            double quantAnel = (Math.ceil(altura / distCaptor)) - 1;
+        if (servico.equalsIgnoreCase("spda")) {
+            if (material.equalsIgnoreCase("barra chata")) {
+                quantDescidas = Math.ceil(perimetro / distDescida);
+                quantAnel = (Math.ceil(altura / distCaptor)) - 1;
 
-            double barra = Math.ceil(((perimetro / 6) * quantAnel) + (perimetroCaptor / 6) + ((altura / 6) * quantDescidas));
-            double diasCaptor = ((barra * 6) / 108);
-            double diasAnel = ((barra * 6) / 36);
-            double diasDescidas = ((barra * 6) / 48);
-            double diasAterramento = (diasDescidas / 6);
-            double diasProtecaoMecanica = (diasDescidas / 6);
+                barra = Math.ceil(((perimetro / 6) * quantAnel) + (perimetroCaptor / 6) + ((altura / 6) * quantDescidas));
+                diasCaptor = ((barra * 6) / 108);
+                diasAnel = ((barra * 6) / 36);
+                diasDescidas = ((barra * 6) / 48);
+                diasAterramento = (diasDescidas / 6);
+                diasProtecaoMecanica = (diasDescidas / 6);
 
-            dao.realizarConsulta(9);
-            resultados.add((float) (quantDescidas*2));
-            dao.realizarConsulta(17);
-            resultados.add((float)(quantAnel+1));
-            dao.realizarConsulta(24);
-            resultados.add((float)(quantDescidas*2));
+                resultados.add((float) (quantDescidas * 2)); // cordoalha de 70mm²
+                resultados.add((float) (quantAnel + 1)); // caixa de bep 9
+                resultados.add((float) (quantDescidas * 2)); // clips de 1"
+                resultados.add((float) (quantDescidas * 1.5)); // terminal de compressao de 70mm.
+                resultados.add((float) (quantDescidas * 0.03)); // veda calha.
+                resultados.add((float) (barra)); // barra chata.
+                resultados.add((float) (quantDescidas * 4)); // abraçadeira
+                resultados.add((float) (quantDescidas)); // eletroduto
+                resultados.add((float) (quantDescidas)); // luva de emenda 70mm
+                resultados.add((float) (quantDescidas)); // caixa de inspeção suspença
+                resultados.add((float) (barra * 2)); // parafuso de emenda
+                resultados.add((float) (quantDescidas * 4)); // parafuso de 8 mm
+                resultados.add((float) (barra * 8)); // parafuso de 6mm
+                resultados.add((float) (3)); // dps
+                resultados.add((float) (((diasAnel + diasCaptor + diasDescidas) / 2) + diasAterramento + diasProtecaoMecanica)); // dias de trablho do instalador e do encarregado
 
+                indices = Arrays.asList(9, 16, 24, 35, 39, 42, 43, 45, 46, 48, 74, 75, 76, 77);
 
+                for (int j = 0; j < resultados.getLast(); j++) {
+                    valor.add(resultados.get(j) * dao.obterValorUnidade(indices.get(j)));
+                }
+                valor.add(resultados.get(14) * 240);
+                valor.add(resultados.get(14) * 180);
 
+            } else if (material.equalsIgnoreCase("cobre")) {
 
+                resultados.add((float) ((altura * quantDescidas) + (perimetro * quantAnel) + perimetroCaptor)); // cabo de cobre nu 50mm
+                diasCaptor = (resultados.get(0) / 120);
+                diasAnel = (resultados.get(0) / 36);
+                diasDescidas = (resultados.get(0) / 48) / quantDescidas;
+                diasAterramento = (quantDescidas / 6);
+                diasProtecaoMecanica = (quantDescidas / 6);
+                resultados.add(resultados.get(0) * 2); // parafuso de 6 mm completo
+                resultados.add(resultados.get(0)); // isolador e mini captor de aluminio
+                resultados.add((float) (((diasAnel + diasCaptor + diasDescidas) / 3) + diasAterramento + diasProtecaoMecanica));
 
-
-
-
-
-        } else if (material.equalsIgnoreCase("cobre")) {
-            // Cálculos relacionados ao material "cobre"
+                valor.add(resultados.get(0) * dao.obterValorUnidade(5));
+                valor.add(resultados.get(1) * dao.obterValorUnidade(76));
+                valor.add(resultados.get(2) * dao.obterValorUnidade(5));
+                valor.add(resultados.get(3) * 240);//dia  de encarregado
+                valor.add(resultados.get(3) * 180);//dia de instalador
+                indices = Arrays.asList(5, 76, 5);
+            }
         }
+
+        if (servico.equalsIgnoreCase("aterramento")) {
+            if (material.equalsIgnoreCase("cobre") || material.equalsIgnoreCase("cordoalha")) {
+                resultados.add(perimetro * pontosAterramento);//cabo de cobre nu 50mm²// cordoalha
+                resultados.add((perimetro / 3) * pontosAterramento); //tampa de ferro e caixa de inspeção e haste de camada
+                resultados.add((float) (pontosAterramento)); //caixa de bep
+                resultados.add((float) (pontosAterramento * 4)); //cabo verde 16mm
+                resultados.add((float) ((float) (pontosAterramento) * (1.05)));//terminal de compressão 50mm² e solda exotermica completa// terminal de compreção de 70mm2 solda exotermica completa
+
+
+                if (pontosAterramento >= 5) {
+                    resultados.add((float) (pontosAterramento / 5));
+                } else {
+                    resultados.add(1F);
+                }
+                if (material.equalsIgnoreCase("cobre")) {
+                    valor.add(resultados.get(0) * dao.obterValorUnidade(5));
+                    valor.add(resultados.get(4) * dao.obterValorUnidade(34));
+                    valor.add(resultados.get(4) * dao.obterValorUnidade(37));
+                    valor.add(resultados.get(1) * dao.obterValorUnidade(12));
+                    valor.add(resultados.get(1) * dao.obterValorUnidade(15));
+                    valor.add(resultados.get(2) * dao.obterValorUnidade(16));
+                    valor.add(resultados.get(3) * dao.obterValorUnidade(11));
+                    indices = Arrays.asList(9, 11, 12, 15, 16, 34, 37);
+                } else if (material.equalsIgnoreCase("cordoalha")) {
+                    valor.add(resultados.get(0) * dao.obterValorUnidade(9));
+                    valor.add(resultados.get(4) * dao.obterValorUnidade(35));
+                    valor.add(resultados.get(4) * dao.obterValorUnidade(37));
+                    valor.add(resultados.get(1) * dao.obterValorUnidade(12));
+                    valor.add(resultados.get(1) * dao.obterValorUnidade(15));
+                    valor.add(resultados.get(2) * dao.obterValorUnidade(16));
+                    valor.add(resultados.get(3) * dao.obterValorUnidade(11));
+                    indices = Arrays.asList(9, 11, 12, 15, 16, 35, 37);
+                }
+
+
+                valor.add(resultados.get((int) ((resultados.getLast() ) * 240)));//dia  de encarregado
+                valor.add(resultados.get((int) ((resultados.getLast()) * 180)));//dia de instalador
+
+
+            }
+        } else if (servico.equalsIgnoreCase("laudo")) {
+            if (edificacao.equalsIgnoreCase("blocos")) {
+                resultados.add((blocos / 9f));
+                valor.add(resultados.get(0));
+
+            } else if (edificacao.equalsIgnoreCase("outros")) {
+                resultados.add((perimetro / 30));
+                valor.add(resultados.get(0));
+            }
+        }
+
+        System.out.println("  ------------------------------------------------------------------");
+        for (int j = 0; j <=resultados.getLast(); j++) {
+            System.out.println("   " + dao.obterNomeMaterial(indices.get(j)) + ": " + resultados.get(j));
+        }
+        System.out.println("  ------------------------------------------------------------------");
+
+        System.out.println("dias de encarregado :" + (Math.ceil(resultados.get(resultados.size() - 1))));
+        System.out.println("dias de instalador :" + (Math.ceil(resultados.get(resultados.size() - 1))));
+
+        double soma = 0.0;
+        double somaImposto = 0.0;
+        double margemMaterial = 20.0 / 100;
+        double margemMaodeObra = 40.0 / 100;
+        double comissao = 10.0 / 100;
+        double total = 0.0;
+        double imposto = aliquota / 100;
+
+        for (float resultado : valor) {
+            double somaTemp = 0.0;
+            for (int l = 0; l < indices.size(); l++) {
+                int indice = indices.get(l);
+                somaTemp += resultado;
+
+                soma += somaTemp;
+                somaImposto = soma + ((margemMaodeObra * valor.get(indice)) + (margemMaterial * (soma - valor.get(indice) * imposto)));
+                total += somaImposto + comissao;
+            }
+        }
+
+        System.out.printf("Soma dos produtos em impostos: %.2f%n", soma);
+        System.out.printf("Soma da margem: %.2f%n", somaImposto);
+        System.out.printf("Soma do valor total com impostos: %.2f%n", total);
     }
 }
 
