@@ -12,6 +12,7 @@ public class Calculadora {
     private ArrayList<Float> valor = new ArrayList<>();
     private List<Integer> indices;
     private Dao dao = new Dao();
+    double soma = 0.0;
 
     private int nivelDeProtecao, pontosAterramento, blocos;
     private String edificacao;
@@ -78,9 +79,10 @@ public class Calculadora {
         }
 
         if (servico.equalsIgnoreCase("spda")) {
+            quantDescidas = Math.ceil(perimetro / distDescida);
+            quantAnel = (Math.ceil(altura / distCaptor)) - 1;
             if (material.equalsIgnoreCase("barra chata")) {
-                quantDescidas = Math.ceil(perimetro / distDescida);
-                quantAnel = (Math.ceil(altura / distCaptor)) - 1;
+
 
                 barra = Math.ceil(((perimetro / 6) * quantAnel) + (perimetroCaptor / 6) + ((altura / 6) * quantDescidas));
                 diasCaptor = ((barra * 6) / 108);
@@ -107,9 +109,14 @@ public class Calculadora {
 
                 indices = Arrays.asList(9, 16, 24, 35, 39, 42, 43, 45, 46, 48, 74, 75, 76, 77);
 
-                for (int j = 0; j < resultados.getLast(); j++) {
-                    valor.add(resultados.get(j) * dao.obterValorUnidade(indices.get(j)));
+                for (int j = 0; j < resultados.size() - 1; j++) {
+                    int indice = indices.get(j);
+                    valor.add(resultados.get(j) * dao.obterValorUnidade(indice));
                 }
+
+
+
+
                 valor.add(resultados.get(14) * 240);
                 valor.add(resultados.get(14) * 180);
 
@@ -118,19 +125,19 @@ public class Calculadora {
                 resultados.add((float) ((altura * quantDescidas) + (perimetro * quantAnel) + perimetroCaptor)); // cabo de cobre nu 50mm
                 diasCaptor = (resultados.get(0) / 120);
                 diasAnel = (resultados.get(0) / 36);
-                diasDescidas = (resultados.get(0) / 48) / quantDescidas;
+                diasDescidas = (resultados.get(0) / 48) / (quantDescidas);
                 diasAterramento = (quantDescidas / 6);
                 diasProtecaoMecanica = (quantDescidas / 6);
                 resultados.add(resultados.get(0) * 2); // parafuso de 6 mm completo
                 resultados.add(resultados.get(0)); // isolador e mini captor de aluminio
-                resultados.add((float) (((diasAnel + diasCaptor + diasDescidas) / 3) + diasAterramento + diasProtecaoMecanica));
+                resultados.add((float) (((diasAnel + diasCaptor + diasDescidas) / 3) + (diasAterramento + diasProtecaoMecanica)));
 
                 valor.add(resultados.get(0) * dao.obterValorUnidade(5));
                 valor.add(resultados.get(1) * dao.obterValorUnidade(76));
-                valor.add(resultados.get(2) * dao.obterValorUnidade(5));
+                valor.add(resultados.get(2) * dao.obterValorUnidade(50));
                 valor.add(resultados.get(3) * 240);//dia  de encarregado
                 valor.add(resultados.get(3) * 180);//dia de instalador
-                indices = Arrays.asList(5, 76, 5);
+                indices = Arrays.asList(5, 76,50);
             }
         }
 
@@ -169,8 +176,8 @@ public class Calculadora {
                 }
 
 
-                valor.add(resultados.get((int) ((resultados.getLast() ) * 240)));//dia  de encarregado
-                valor.add(resultados.get((int) ((resultados.getLast()) * 180)));//dia de instalador
+                valor.add(valor.getLast()  * 240);//dia  de encarregado
+
 
 
             }
@@ -185,37 +192,56 @@ public class Calculadora {
             }
         }
 
+
         System.out.println("  ------------------------------------------------------------------");
-        for (int j = 0; j <=resultados.getLast(); j++) {
-            System.out.println("   " + dao.obterNomeMaterial(indices.get(j)) + ": " + resultados.get(j));
+        for (int i = 0; i < resultados.size()-1; i++) {
+            System.out.println(dao.obterNomeMaterial(indices.get(i)) + ": " + " | Quantidade: " + resultados.get(i));
         }
+
+
+
+
+
+
         System.out.println("  ------------------------------------------------------------------");
 
         System.out.println("dias de encarregado :" + (Math.ceil(resultados.get(resultados.size() - 1))));
-        System.out.println("dias de instalador :" + (Math.ceil(resultados.get(resultados.size() - 1))));
+        if ( servico!="laudo") {
+            System.out.println("dias de instalador :" + (Math.ceil(resultados.get(resultados.size() - 1))));
+        }
 
-        double soma = 0.0;
-        double somaImposto = 0.0;
-        double margemMaterial = 20.0 / 100;
-        double margemMaodeObra = 40.0 / 100;
+
+
+        double valorImposto = 0.0;
+        double porcemtagemMaterial = 20.0 / 100;
+        double porcemtagemMaodeObra = 40.0 / 100;
+        double margemMaterial = 0;
+        double margemMaodeObra = 0;
+        double tudo=0;
         double comissao = 10.0 / 100;
+        double valorComissao= 0;
         double total = 0.0;
         double imposto = aliquota / 100;
 
-        for (float resultado : valor) {
-            double somaTemp = 0.0;
-            for (int l = 0; l < indices.size(); l++) {
-                int indice = indices.get(l);
-                somaTemp += resultado;
 
-                soma += somaTemp;
-                somaImposto = soma + ((margemMaodeObra * valor.get(indice)) + (margemMaterial * (soma - valor.get(indice) * imposto)));
-                total += somaImposto + comissao;
-            }
+
+        for (float valor : valor) {
+            soma += valor;
         }
+        margemMaterial=valor.removeLast()+((valor.removeLast())*porcemtagemMaterial);
+        margemMaodeObra= valor.getLast()+((valor.getLast()) * porcemtagemMaodeObra);
 
-        System.out.printf("Soma dos produtos em impostos: %.2f%n", soma);
-        System.out.printf("Soma da margem: %.2f%n", somaImposto);
+        valorComissao=(soma +margemMaterial+margemMaodeObra)*comissao;
+        tudo=(soma +margemMaterial+margemMaodeObra+valorComissao);
+        valorImposto = (tudo*imposto);
+        total=tudo+valorImposto;
+
+
+
+        System.out.printf("Soma da margem mao de obra: %.2f%n", margemMaodeObra);
+        System.out.printf("Soma da margem material: %.2f%n", margemMaterial);
+        System.out.printf("Soma da comissao: %.2f%n", valorComissao);
+        System.out.printf("Soma de imposto: %.2f%n", valorImposto);
         System.out.printf("Soma do valor total com impostos: %.2f%n", total);
     }
 }
