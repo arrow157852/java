@@ -16,6 +16,8 @@ public class Main {
         curso2.setDescricao("descrição curso js ");
         curso2.setCargaHoraria(4);
 
+        Conteudo conteudo = new Cuso();
+
         Mentoria mentoria = new Mentoria();
 
 
