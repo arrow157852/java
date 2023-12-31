@@ -19,6 +19,16 @@ public class Calculadora {
     private String material, servico;
     private float perimetro, altura, perimetroCaptor;
     private double quantDescidas, quantAnel, barra, diasCaptor, diasAnel, diasDescidas, diasAterramento, diasProtecaoMecanica, aliquota;
+    double valorImposto = 0.0;
+    double porcemtagemMaterial = 20.0 / 100;
+    double porcemtagemMaodeObra = 40.0 / 100;
+    double margemMaterial = 0;
+    double margemMaodeObra = 0;
+    double tudo=0;
+    double comissao = 10.0 / 100;
+    double valorComissao= 0;
+    double total = 0.0;
+
 
     public Calculadora() {
         // Adicione um construtor se necessário
@@ -176,21 +186,29 @@ public class Calculadora {
                 }
 
 
-                valor.add(valor.getLast()  * 240);//dia  de encarregado
-
+                valor.add(valor.getLast() * 240);//dia  de encarregado
 
 
             }
-        } else if (servico.equalsIgnoreCase("laudo")) {
-            if (edificacao.equalsIgnoreCase("blocos")) {
-                resultados.add((blocos / 9f));
-                valor.add(resultados.get(0));
 
-            } else if (edificacao.equalsIgnoreCase("outros")) {
-                resultados.add((perimetro / 30));
-                valor.add(resultados.get(0));
+        } else if (servico.equalsIgnoreCase("LAUDO")) {
+            if (edificacao.equalsIgnoreCase("BLOCOS")) {
+                resultados.add((blocos / 9f));
+                if (blocos>4){
+                total=blocos*300;}
+                else {
+                    total=1200 ;
+                }
+            } else if (edificacao.equalsIgnoreCase("OUTROS")) {
+                resultados.add((perimetro / 90));
+                total=resultados.getFirst()*800;
+
+            } else {
+                // Lidar com o caso em que edificacao não é nem "blocos" nem "outros"
+                System.out.println("Edificação não reconhecida: " + edificacao);
             }
         }
+
 
 
         System.out.println("  ------------------------------------------------------------------");
@@ -205,43 +223,48 @@ public class Calculadora {
 
         System.out.println("  ------------------------------------------------------------------");
 
-        System.out.println("dias de encarregado :" + (Math.ceil(resultados.get(resultados.size() - 1))));
-        if ( servico!="laudo") {
-            System.out.println("dias de instalador :" + (Math.ceil(resultados.get(resultados.size() - 1))));
+        if (servico.equalsIgnoreCase("laudo")) {
+            System.out.println("dias de encarregado: " + Math.ceil(resultados.getLast()));
+        }
+        else  {
+            System.out.println("dias de instalador: " + Math.ceil(resultados.get(resultados.size() - 1)));
+            System.out.println("dias de encarregado: " + resultados.get(resultados.size() - 1));
         }
 
 
 
-        double valorImposto = 0.0;
-        double porcemtagemMaterial = 20.0 / 100;
-        double porcemtagemMaodeObra = 40.0 / 100;
-        double margemMaterial = 0;
-        double margemMaodeObra = 0;
-        double tudo=0;
-        double comissao = 10.0 / 100;
-        double valorComissao= 0;
-        double total = 0.0;
+
+
+
+
+
         double imposto = aliquota / 100;
-
-
-
         for (float valor : valor) {
             soma += valor;
         }
-        margemMaterial=valor.removeLast()+((valor.removeLast())*porcemtagemMaterial);
-        margemMaodeObra= valor.getLast()+((valor.getLast()) * porcemtagemMaodeObra);
+        if (servico.equalsIgnoreCase("laudo")){
+            margemMaterial = 0;
+            margemMaodeObra = 0;
+        }
+        else if (!servico.equalsIgnoreCase("laudo")) {
+            margemMaterial = valor.removeLast() + ((valor.removeLast()) * porcemtagemMaterial);
+            margemMaodeObra = valor.getLast() + ((valor.getLast()) * porcemtagemMaodeObra);
 
-        valorComissao=(soma +margemMaterial+margemMaodeObra)*comissao;
-        tudo=(soma +margemMaterial+margemMaodeObra+valorComissao);
-        valorImposto = (tudo*imposto);
-        total=tudo+valorImposto;
+
+            valorComissao = (soma + margemMaterial + margemMaodeObra) * comissao;
+            tudo = (soma + margemMaterial + margemMaodeObra + valorComissao);
+            valorImposto = (tudo * imposto);
+            total = tudo + valorImposto;
 
 
+            System.out.printf("Soma da margem mao de obra: %.2f%n", margemMaodeObra);
+            System.out.printf("Soma da margem material: %.2f%n", margemMaterial);
+            System.out.printf("Soma da comissao: %.2f%n", valorComissao);
+            System.out.printf("Soma da comissao: %.2f%n", (valorComissao+margemMaodeObra+margemMaterial));
+            System.out.printf("Soma de imposto: %.2f%n", valorImposto);
+        }
 
-        System.out.printf("Soma da margem mao de obra: %.2f%n", margemMaodeObra);
-        System.out.printf("Soma da margem material: %.2f%n", margemMaterial);
-        System.out.printf("Soma da comissao: %.2f%n", valorComissao);
-        System.out.printf("Soma de imposto: %.2f%n", valorImposto);
+
         System.out.printf("Soma do valor total com impostos: %.2f%n", total);
     }
 }

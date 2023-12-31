@@ -8,8 +8,11 @@ public class Main {
         Dao dao = new Dao();
 
 
+
         calc1.perguntas();
         calc1.calcular();
+
+
 
 
 
