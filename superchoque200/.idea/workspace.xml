@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="ddca7399-4d8e-447a-ab57-70173caa361b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Calculadora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Calculadora.java" afterDir="false" />
@@ -24,6 +25,9 @@
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Database.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Main.class" afterDir="false" />
     </list>
+=======
+    <list default="true" id="ddca7399-4d8e-447a-ab57-70173caa361b" name="Changes" comment="" />
+>>>>>>> 70669eb61702da4223b7eb06e6ef17f26c1b415d
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +54,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
     "Application.CalculadoraGUI.executor": "Run",
     "Application.InterfaceGrafica.executor": "Run",
     "Application.Main.executor": "Run",
@@ -61,6 +66,14 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/programacao/js/superchoque200grafico",
+=======
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/programacao/java/poo 2",
+>>>>>>> 70669eb61702da4223b7eb06e6ef17f26c1b415d
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
 }]]></component>
