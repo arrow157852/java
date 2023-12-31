@@ -20,7 +20,7 @@ public class Dao {
     public void realizarConsulta(int id) {
         String sql = "SELECT material, valor_unidade FROM planilha WHERE id = ?";
 
-        try (Connection conn = database.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
             // Define o valor do parâmetro
