@@ -1,9 +1,11 @@
 package Grafico;
 
-import dao.ConexaoBanco;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Grafico.FormSPDA;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import util.PosicaoFormulario;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,12 +18,15 @@ import java.util.logging.Logger;
  */
 public class principal extends javax.swing.JFrame {
 
+    PosicaoFormulario form = new PosicaoFormulario();
+    
     /**
      * Creates new form principal
      */
     public principal() {
         initComponents();
         setExtendedState(principal.MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -36,8 +41,8 @@ public class principal extends javax.swing.JFrame {
         jDesktop = new javax.swing.JDesktopPane();
         jmbBarraMenu = new javax.swing.JMenuBar();
         jmCadastramento = new javax.swing.JMenu();
-        itens = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        itens = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -55,11 +60,11 @@ public class principal extends javax.swing.JFrame {
         jDesktop.setLayout(jDesktopLayout);
         jDesktopLayout.setHorizontalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1032, Short.MAX_VALUE)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
         jDesktopLayout.setVerticalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         jmbBarraMenu.setBackground(new java.awt.Color(242, 242, 242));
@@ -68,6 +73,12 @@ public class principal extends javax.swing.JFrame {
         jmCadastramento.setMnemonic('c');
         jmCadastramento.setText("Cadastrmento ");
         jmCadastramento.setToolTipText("");
+        jmCadastramento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCadastramentoActionPerformed(evt);
+            }
+        });
+        jmCadastramento.add(jSeparator3);
 
         itens.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itens.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\itens.png")); // NOI18N
@@ -83,7 +94,6 @@ public class principal extends javax.swing.JFrame {
             }
         });
         jmCadastramento.add(itens);
-        jmCadastramento.add(jSeparator3);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\maodeobra.png")); // NOI18N
@@ -113,6 +123,11 @@ public class principal extends javax.swing.JFrame {
         jmOrcamento.setMnemonic('o');
         jmOrcamento.setText("orcamento");
         jmOrcamento.setToolTipText("");
+        jmOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOrcamentoActionPerformed(evt);
+            }
+        });
         jmbBarraMenu.add(jmOrcamento);
 
         setJMenuBar(jmbBarraMenu);
@@ -128,31 +143,22 @@ public class principal extends javax.swing.JFrame {
             .addComponent(jDesktop)
         );
 
-        setSize(new java.awt.Dimension(1048, 593));
+        setSize(new java.awt.Dimension(554, 387));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void itensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itensActionPerformed
-        // TODO add your handling code here:
-        ItensGrafico tela = new ItensGrafico();
-
-        // Adicione o FormPadrao à tela principal
-        jDesktop.add(tela);
-
-        
-        tela.setVisible(true);
+       
+        ItensGrafico tela ;
+        form.abrirFormulario(tela= new ItensGrafico() , jDesktop);
   
         
     }//GEN-LAST:event_itensActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         OutrosGrafico tela = new OutrosGrafico();
-
-        // Adicione o FormPadrao à tela principal
-        jDesktop.add(tela);
-
-        
-        tela.setVisible(true);
+         
+        OutrosGrafico tela ;
+        form.abrirFormulario(tela= new OutrosGrafico() , jDesktop);
        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -162,14 +168,39 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itensComponentShown
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        MaodeObraGrafico tela = new MaodeObraGrafico();
-
-        // Adicione o FormPadrao à tela principal
-        jDesktop.add(tela);
-
+      
+        MaodeObraGrafico tela ;
+        form.abrirFormulario(tela= new MaodeObraGrafico() , jDesktop);
         
-        tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOrcamentoActionPerformed
+      
+        try {
+        // Crie uma instância específica do FormSPDA
+            FormSPDA calculadoraFrame = new FormSPDA();
+
+            // Adicione o JInternalFrame ao JDesktopPane
+            jDesktop.add(calculadoraFrame);
+
+            // Defina a posição inicial do JInternalFrame
+            calculadoraFrame.setLocation(50, 50);
+
+            // Torna o JInternalFrame visível
+            calculadoraFrame.setVisible(true);
+        } catch (Exception e) {
+            // Trate a exceção de acordo com os requisitos do seu aplicativo
+            System.out.println(e.getMessage());
+            
+    }
+
+        // Trate a exceção de acordo com os requisitos do seu aplicativo
+
+    }//GEN-LAST:event_jmOrcamentoActionPerformed
+
+    private void jmCadastramentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastramentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmCadastramentoActionPerformed
 
     /**
      * @param args the command line arguments
