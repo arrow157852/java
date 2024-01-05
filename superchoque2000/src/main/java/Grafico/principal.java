@@ -1,10 +1,9 @@
 package Grafico;
 
-import Grafico.FormSPDA;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import util.PosicaoFormulario;
 
 /*
@@ -38,15 +37,22 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jmbBarraMenu = new javax.swing.JMenuBar();
         jmCadastramento = new javax.swing.JMenu();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         itens = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
         jmOrcamento = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jmAterramento = new javax.swing.JMenuItem();
+        jmLaudo = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Planilha Orcamento");
@@ -94,6 +100,7 @@ public class principal extends javax.swing.JFrame {
             }
         });
         jmCadastramento.add(itens);
+        jmCadastramento.add(jSeparator4);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\maodeobra.png")); // NOI18N
@@ -118,16 +125,51 @@ public class principal extends javax.swing.JFrame {
 
         jmbBarraMenu.add(jmCadastramento);
 
-        jmOrcamento.setBackground(new java.awt.Color(242, 242, 242));
         jmOrcamento.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\orcamento.png")); // NOI18N
         jmOrcamento.setMnemonic('o');
-        jmOrcamento.setText("orcamento");
+        jmOrcamento.setText("Orcamento");
         jmOrcamento.setToolTipText("");
         jmOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmOrcamentoActionPerformed(evt);
             }
         });
+        jmOrcamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmOrcamentoKeyPressed(evt);
+            }
+        });
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\SPDA.png")); // NOI18N
+        jMenuItem5.setText("SPDA");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jmOrcamento.add(jMenuItem5);
+
+        jmAterramento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmAterramento.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\aterramento.png")); // NOI18N
+        jmAterramento.setText("Aterramento");
+        jmAterramento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAterramentoActionPerformed(evt);
+            }
+        });
+        jmOrcamento.add(jmAterramento);
+
+        jmLaudo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmLaudo.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\Laudo.png")); // NOI18N
+        jmLaudo.setText("Laudo");
+        jmLaudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLaudoActionPerformed(evt);
+            }
+        });
+        jmOrcamento.add(jmLaudo);
+
         jmbBarraMenu.add(jmOrcamento);
 
         setJMenuBar(jmbBarraMenu);
@@ -148,18 +190,18 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itensActionPerformed
-       
+       SwingUtilities.invokeLater(() -> {
         ItensGrafico tela ;
         form.abrirFormulario(tela= new ItensGrafico() , jDesktop);
   
-        
+        });
     }//GEN-LAST:event_itensActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         
+         SwingUtilities.invokeLater(() -> {
         OutrosGrafico tela ;
         form.abrirFormulario(tela= new OutrosGrafico() , jDesktop);
-       
+       });
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void itensComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_itensComponentShown
@@ -168,39 +210,44 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itensComponentShown
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-      
+      SwingUtilities.invokeLater(() -> {
         MaodeObraGrafico tela ;
         form.abrirFormulario(tela= new MaodeObraGrafico() , jDesktop);
-        
+        });
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jmOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOrcamentoActionPerformed
-      
-        try {
-        // Crie uma instância específica do FormSPDA
-            FormSPDA calculadoraFrame = new FormSPDA();
-
-            // Adicione o JInternalFrame ao JDesktopPane
-            jDesktop.add(calculadoraFrame);
-
-            // Defina a posição inicial do JInternalFrame
-            calculadoraFrame.setLocation(50, 50);
-
-            // Torna o JInternalFrame visível
-            calculadoraFrame.setVisible(true);
-        } catch (Exception e) {
-            // Trate a exceção de acordo com os requisitos do seu aplicativo
-            System.out.println(e.getMessage());
-            
-    }
-
-        // Trate a exceção de acordo com os requisitos do seu aplicativo
-
-    }//GEN-LAST:event_jmOrcamentoActionPerformed
 
     private void jmCadastramentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastramentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmCadastramentoActionPerformed
+
+    private void jmOrcamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmOrcamentoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmOrcamentoKeyPressed
+
+    private void jmOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOrcamentoActionPerformed
+        
+    }//GEN-LAST:event_jmOrcamentoActionPerformed
+
+    private void jmLaudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLaudoActionPerformed
+       SwingUtilities.invokeLater(() -> {
+        Laudo tela ;
+        form.abrirFormulario(tela= new Laudo() , jDesktop);
+        });
+    }//GEN-LAST:event_jmLaudoActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        SwingUtilities.invokeLater(() -> {
+        SPDA tela ;
+        form.abrirFormulario(tela= new SPDA() , jDesktop);
+        }); 
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jmAterramentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAterramentoActionPerformed
+        SwingUtilities.invokeLater(() -> {
+        Aterramento tela ;
+        form.abrirFormulario(tela= new Aterramento() , jDesktop);
+        });        // TODO add your handling code here:
+    }//GEN-LAST:event_jmAterramentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,9 +287,14 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JMenuItem jmAterramento;
     private javax.swing.JMenu jmCadastramento;
+    private javax.swing.JMenuItem jmLaudo;
     private javax.swing.JMenu jmOrcamento;
     private javax.swing.JMenuBar jmbBarraMenu;
     // End of variables declaration//GEN-END:variables

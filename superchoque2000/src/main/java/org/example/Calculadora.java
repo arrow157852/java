@@ -1,4 +1,4 @@
-package org.example;
+    package org.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -213,9 +213,9 @@ public class Calculadora {
 
 
         System.out.println("  ------------------------------------------------------------------");
-        for (int i = 0; i < resultados.size()-1; i++) {
-            System.out.println(dao.obterNomeMaterial(indices.get(i)) + ": " + " | Quantidade: " + resultados.get(i));
-        }
+            for (int i = 0; i < resultados.size()-1; i++) {
+                System.out.println(dao.obterNomeMaterial(indices.get(i)) + ": " + " | Quantidade: " + resultados.get(i));
+            }
 
 
 
