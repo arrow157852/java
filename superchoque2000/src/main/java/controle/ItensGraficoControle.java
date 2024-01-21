@@ -4,6 +4,9 @@ package controle;
 import Interface.InterfaceControle;
 import Modelo.ItensGraficoModelo;
 import dao.ItensGraficoDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,7 +27,7 @@ public class ItensGraficoControle implements InterfaceControle {
          if("".equals(valores[0])){
        igm.setId(0);
         }else {
-             igm.setId((int)valores[0]);
+             igm.setId(Integer.parseInt(valores[0].toString()));
         }
        
         igm.setDescricao((String)valores[1]);
@@ -37,6 +40,16 @@ public class ItensGraficoControle implements InterfaceControle {
 
     @Override
     public void excluircontrole(int id) {
+        igd.excluirDao(id);
+    }
+
+    @Override
+    public void consultarControle(Object... valores) {
+        try {
+            igd.consultarDao(valores);
+        } catch (SQLException ex) {
+            Logger.getLogger(ItensGraficoControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

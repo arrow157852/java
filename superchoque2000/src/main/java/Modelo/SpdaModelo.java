@@ -4,36 +4,41 @@
  */
 package Modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Usuario03
  */
 public class SpdaModelo {
-    private int id;
-    private String descricao;
-    private float valor;
+   private String material;
+    private float valorUnidade;
 
-    public int getId() {
-        return id;
+    public String getMaterial() {
+    return material;
+}
+
+public void setMaterial(String material) {
+    this.material = material;
+}
+
+   
+    // Construtores, getters e setters
+
+    public float getValorUnidade() {
+        return valorUnidade;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setValorUnidade(float valorUnidade) {
+        this.valorUnidade = valorUnidade;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public float getValor() {
-        return valor;
-    }
-
-    public void setValor(float valor) {
-        this.valor = valor;
+    // Método para popular a classe a partir do ResultSet
+    public void popularDados(ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            this.material = rs.getString("material");
+            this.valorUnidade = rs.getFloat("valor_unidade");
+        }
     }
 }

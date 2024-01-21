@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+import controle.SPDAControle;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Usuario03
@@ -19,14 +22,11 @@ public class SPDA extends javax.swing.JInternalFrame {
     private ArrayList<Float> resultados = new ArrayList<>();
     private ArrayList<Float> valor = new ArrayList<>();
     private List<Integer> indices;
-    private ConexaoBanco dao = new ConexaoBanco();
+    private  SPDAControle dao = new SPDAControle();
     double soma = 0.0;
 
-    private int nivelDeProtecao, pontosAterramento, blocos;
-    private String edificacao;
-    private String material, servico;
-    private float perimetro, altura, perimetroCaptor;
-    private double quantDescidas, quantAnel, barra, diasCaptor, diasAnel, diasDescidas, diasAterramento, diasProtecaoMecanica, aliquota;
+   
+    private double quantDescidas, quantAnel, barra, diasCaptor, diasAnel, diasDescidas, diasAterramento, diasProtecaoMecanica, diasInstalador,diasEncarregado;
     double valorImposto = 0.0;
     double porcemtagemMaterial = 20.0 / 100;
     double porcemtagemMaodeObra = 40.0 / 100;
@@ -92,6 +92,11 @@ public class SPDA extends javax.swing.JInternalFrame {
         });
 
         jbxMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "barra chata", "cobre" }));
+        jbxMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbxMaterialActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("material");
 
@@ -105,7 +110,7 @@ public class SPDA extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Altura (h)");
 
-        jLabel4.setText("perímetro da edificação");
+        jLabel4.setText("perimetro ");
 
         jLabel5.setText("perímetro do captor");
 
@@ -161,9 +166,9 @@ public class SPDA extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
+                        .addGap(56, 56, 56)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -274,11 +279,9 @@ public class SPDA extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbFecharActionPerformed
 
-    private void jtfCaptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCaptorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCaptorActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+       
         calcular();
         StringBuilder mensagem = new StringBuilder();
 
@@ -291,15 +294,37 @@ public class SPDA extends javax.swing.JInternalFrame {
                     .append("\n");
         }
 
+        DecimalFormat formato = new DecimalFormat("#,##0.00");
+        String totalFormatado = formato.format(total);
+        String comissaoFormatado = formato.format(valorComissao);
+        String tudoFormatado = formato.format(tudo);
+        String impostoFormatado = formato.format(valorImposto);
+        
+        
+        
         // Exibir a mensagem em um JOptionPane
         JOptionPane.showMessageDialog(
                 null,
-                mensagem.toString(),
+                mensagem.toString() + "\n"
+                + "Días de instalador: " + diasInstalador + "\n"
+                + "Días de encargado: " + diasEncarregado + "\n Valor Comissao: " + comissaoFormatado + "\n"
+                + "Tudo: " + tudoFormatado + "\n"
+                + "Valor Imposto: " + impostoFormatado + "\n"
+                + "Total: " + totalFormatado,
                 "Resultados",
                 JOptionPane.INFORMATION_MESSAGE);
 
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jbxMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbxMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbxMaterialActionPerformed
+
+    private void jtfCaptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCaptorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCaptorActionPerformed
 
     public void habilitaCampos(boolean estado) {
         jtfImposto.setEnabled(estado);
@@ -325,11 +350,11 @@ public class SPDA extends javax.swing.JInternalFrame {
     public void habilitaBotoes(boolean estado) {
         jbNovo.setEnabled(estado);
 
-        jbExcluir.setEnabled(estado);
+        jbExcluir.setEnabled(!estado);
 
     }
 
-    public void calcular() {
+    public Double[] calcular() {
         int distDescida = 0;
         int distCaptor = 0;
 
@@ -337,7 +362,7 @@ public class SPDA extends javax.swing.JInternalFrame {
 
         try {
             int NP = Integer.parseInt(itemSelecionadoNP);
-            JOptionPane.showMessageDialog(null, "Número Inteiro: " + NP);
+           
 
             switch (NP) {
                 case 2, 1 -> {
@@ -364,9 +389,9 @@ public class SPDA extends javax.swing.JInternalFrame {
             String texto2 = jtfAltura.getText();
             String texto3 = jtfPerimetro.getText();
             String texto4 = jtfCaptor.getText();
-            double altura = Double.parseDouble(texto);
-            double perimetroCaptor = Double.parseDouble(texto);
-            double perimetro = Double.parseDouble(texto);
+            double altura = Double.parseDouble(texto2);
+            double perimetroCaptor = Double.parseDouble(texto4);
+            double perimetro = Double.parseDouble(texto3);
             double aliquota = Double.parseDouble(texto);
             quantDescidas = Math.ceil(perimetro / distDescida);
             quantAnel = (Math.ceil(altura / distCaptor)) - 1;
@@ -426,25 +451,34 @@ public class SPDA extends javax.swing.JInternalFrame {
 
                 indices = Arrays.asList(5, 76, 50);
 
-                double imposto = aliquota / 100;
-                for (float valor : valor) {
-                    soma += valor;
-                }
-
-                if (!servico.equalsIgnoreCase("laudo")) {
-                    margemMaodeObra = valor.get(valor.size() - 1) * porcemtagemMaodeObra;
-                    margemMaterial = (soma * porcemtagemMaterial);
-
-                    valorComissao = (soma + margemMaterial + margemMaodeObra) * comissao;
-                    tudo = (soma + margemMaterial + margemMaodeObra + valorComissao);
-                    valorImposto = (tudo * imposto);
-                    total = tudo + valorImposto;
-                }
+               
             }
+            
+            double imposto = aliquota / 100;
+            for (float valores : valor) {
+                    soma += valores;
+            }
+
+            margemMaodeObra=valor.get(valor.size()-1)* porcemtagemMaodeObra;
+            margemMaterial = ((soma-valor.get(valor.size()-1)) * porcemtagemMaterial);
+
+            
+
+
+
+            valorComissao = (soma + margemMaterial + margemMaodeObra) * comissao;
+            tudo = (soma + margemMaterial + margemMaodeObra + valorComissao);
+            valorImposto = (tudo * imposto);
+            total = tudo + valorImposto;
+
         } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro: O texto não é um número inteiro válido. Detalhes: " + ex.getMessage());
-                
+            JOptionPane.showMessageDialog(null, "Erro: O texto não é um número inteiro válido. Detalhes: " + ex.getMessage());
+
         }
+         diasInstalador = Math.ceil(resultados.get(resultados.size() - 1));
+         diasEncarregado = Math.ceil(resultados.get(resultados.size() - 1)) ;
+        
+        return new Double[]{diasInstalador,diasEncarregado,valorComissao,tudo,valorImposto,total};
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

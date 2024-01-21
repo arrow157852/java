@@ -1,5 +1,8 @@
 package Grafico;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.Tabela;
@@ -20,6 +23,8 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
     abstract public void salvarGrafico();
     abstract public void criarTabela();
     abstract public void consultaGrafico();
+    abstract public void atualizarformulario();
+    abstract public void excluirVisao();
     
     JTable tabela;
     DefaultTableModel modelo = new DefaultTableModel();
@@ -29,11 +34,30 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
     public FormPadrao() {
         
         initComponents();
+        
         habilitaBotoes(true);
         jtfId.setEnabled(false);
         habilitaCampos(false);
         criarTabela();
+        
+       tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        atualizarformulario();
+        
     }
+    });
+       tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        atualizarformulario();
+    }
+    });
+        
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,7 +84,7 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
         jtfValor = new javax.swing.JTextField();
         jpnConsulta = new javax.swing.JPanel();
         jlbConsulta = new javax.swing.JLabel();
-        tfdConsulta = new javax.swing.JTextField();
+        jtfConsulta = new javax.swing.JTextField();
 
         jbNovo.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\novo.png")); // NOI18N
         jbNovo.setText("Novo");
@@ -190,14 +214,30 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
                     .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
+
+        jpnConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnConsultaMouseClicked(evt);
+            }
+        });
 
         jlbConsulta.setText("Consulta");
 
-        tfdConsulta.addActionListener(new java.awt.event.ActionListener() {
+        jtfConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfConsultaMouseClicked(evt);
+            }
+        });
+        jtfConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdConsultaActionPerformed(evt);
+                jtfConsultaActionPerformed(evt);
+            }
+        });
+        jtfConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfConsultaKeyTyped(evt);
             }
         });
 
@@ -209,7 +249,7 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jlbConsulta)
                 .addGap(28, 28, 28)
-                .addComponent(tfdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnConsultaLayout.setVerticalGroup(
@@ -218,8 +258,8 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jpnConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbConsulta)
-                    .addComponent(tfdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(149, Short.MAX_VALUE))
+                    .addComponent(jtfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,7 +289,15 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR O REGISTRO", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    if(resposta == JOptionPane.YES_OPTION){
+   excluirVisao();
+   consultaGrafico();
+   limpaCampos();
+    }else{
+    JOptionPane.showMessageDialog(null, "Exclusão cancelada");
+    }
+
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
@@ -274,6 +322,7 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
         habilitaBotoes(true);
         habilitaCampos(false);
         salvarGrafico();
+        consultaGrafico();
 
     }//GEN-LAST:event_jbSalvarActionPerformed
 
@@ -284,15 +333,33 @@ abstract public class FormPadrao extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbAlterarActionPerformed
 
-    private void tfdConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdConsultaActionPerformed
+    private void jtfConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfdConsultaActionPerformed
+    }//GEN-LAST:event_jtfConsultaActionPerformed
 
     private void jtfValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfValorActionPerformed
        habilitaBotoes(false);
         habilitaCampos(true);
         jtfDescricao.requestFocus();
     }//GEN-LAST:event_jtfValorActionPerformed
+
+    private void jtfConsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfConsultaKeyTyped
+       consultaGrafico();
+    }//GEN-LAST:event_jtfConsultaKeyTyped
+
+    private void jtfConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfConsultaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfConsultaMouseClicked
+
+    private void jpnConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnConsultaMouseClicked
+        
+                        atualizarformulario();
+                 
+        
+        
+        
+    
+    }//GEN-LAST:event_jpnConsultaMouseClicked
     
     
     // habilitar campos de edição
@@ -306,6 +373,7 @@ public void habilitaCampos(boolean estado){
 public void limpaCampos(){
     jtfDescricao.setText("");
     jtfValor.setText("");
+    jtfId.setText("");
 }
 public void habilitaBotoes(boolean estado){
         jbNovo.setEnabled(estado);
@@ -328,9 +396,9 @@ public void habilitaBotoes(boolean estado){
     private javax.swing.JLabel jlbConsulta;
     private javax.swing.JLabel jlbValor;
     public javax.swing.JPanel jpnConsulta;
+    public javax.swing.JTextField jtfConsulta;
     public javax.swing.JTextField jtfDescricao;
     public javax.swing.JTextField jtfId;
     public javax.swing.JTextField jtfValor;
-    private javax.swing.JTextField tfdConsulta;
     // End of variables declaration//GEN-END:variables
 }

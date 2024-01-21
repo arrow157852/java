@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import org.example.Dao;
+
 
 /**
  *
@@ -16,25 +16,7 @@ import org.example.Dao;
  */
 public class Laudo extends javax.swing.JInternalFrame {
 
-    private ArrayList<Float> resultados = new ArrayList<>();
-    private ArrayList<Float> valor = new ArrayList<>();
-    private List<Integer> indices;
-    private Dao dao = new Dao();
-    double soma = 0.0;
 
-    private int nivelDeProtecao, pontosAterramento, blocos;
-    private String edificacao;
-    private String material, servico;
-    private float perimetro, altura, perimetroCaptor;
-    private double quantDescidas, quantAnel, barra, diasCaptor, diasAnel, diasDescidas, diasAterramento, diasProtecaoMecanica, aliquota;
-    double valorImposto = 0.0;
-    double porcemtagemMaterial = 20.0 / 100;
-    double porcemtagemMaodeObra = 40.0 / 100;
-    double margemMaterial = 0;
-    double margemMaodeObra = 0;
-    double tudo = 0;
-    double comissao = 10.0 / 100;
-    double valorComissao = 0;
     double total = 0.0;
 
     public Laudo() {
@@ -208,7 +190,9 @@ public class Laudo extends javax.swing.JInternalFrame {
     private void jbCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalcularActionPerformed
         calcular();
          DecimalFormat formato = new DecimalFormat("#,##0.00");
+         
         String totalFormatado = formato.format(total);
+        
         JOptionPane.showMessageDialog(null, "o total do serviço é " + totalFormatado);
     }//GEN-LAST:event_jbCalcularActionPerformed
 
@@ -247,9 +231,11 @@ public class Laudo extends javax.swing.JInternalFrame {
 
             if (numerdeBlocos > 4) {
                 total = numerdeBlocos * 300;
+                 
             } else {
                 total = 1200;
             }
+            
         } else {
             String texto = jtfNumero.getText();
             double totalPerimetro = Double.parseDouble(texto);
@@ -258,6 +244,7 @@ public class Laudo extends javax.swing.JInternalFrame {
             } else {
                 total = 1200;
             }
+          
             
             
         }

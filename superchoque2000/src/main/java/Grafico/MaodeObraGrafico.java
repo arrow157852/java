@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class MaodeObraGrafico extends FormPadrao {
     public MaodeObraGrafico (){
         setTitle("cadastro de mao de obra ");
+        consultaGrafico();
     }
 
     MaodeObraGraficoControle mogc = new MaodeObraGraficoControle();
@@ -36,6 +37,18 @@ public class MaodeObraGrafico extends FormPadrao {
 
     @Override
     public void consultaGrafico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        modelo.setNumRows(0);
+        mogc.consultarControle(jtfConsulta.getText(),modelo);
+    }
+
+    @Override
+    public void atualizarformulario() {
+        jtfId.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
+        jtfDescricao.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        jtfValor.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());    }
+
+    @Override
+    public void excluirVisao() {
+        mogc.excluircontrole(Integer.parseInt(jtfId.getText()));
     }
 }

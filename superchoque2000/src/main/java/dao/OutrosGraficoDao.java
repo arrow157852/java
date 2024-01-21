@@ -7,8 +7,10 @@ package dao;
 import Interface.InterfaceDao;
 import Modelo.OutrosGraficoModelo;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +20,7 @@ public class OutrosGraficoDao implements InterfaceDao {
     
     String sql;
     PreparedStatement stm;
+    ResultSet resultado;
 
     @Override
     public void salvarDao(Object... valores) {
@@ -61,10 +64,43 @@ public class OutrosGraficoDao implements InterfaceDao {
 
     @Override
     public void consultarDao(Object... valores) throws SQLException {
+        DefaultTableModel tabela = (DefaultTableModel) valores[1];
+        if("".equals((String)valores[0])){
+         sql = "SELECT * FROM custosdiversos";
+        }else{
+        sql = "SELECT * FROM custosdiversos where Descricao like '%"+valores[0]+"%'";
+        }
+        stm = ConexaoBanco.abreConexao().prepareStatement(sql);
+        resultado = stm.executeQuery();
+        while (resultado.next()) {
+            tabela.addRow(
+                    new Object[]{
+                        resultado.getInt("CustoID"),
+                            resultado.getString("Descricao"),
+                            resultado.getFloat("valor_diversos")
+
+                    }
+            );
+
+        }
+        stm.close();
     }
 
     @Override
     public void excluirDao(int id) {
+        sql = "delete from planilha where  id = ?";
+        try {
+             stm = ConexaoBanco.abreConexao().prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.execute();
+            stm.close();
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso !");
+            
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao excluir registro "+e);
+        }
     }
     
 }

@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 public class OutrosGrafico extends FormPadrao {
     public void OutrosGrafico(){
          setTitle("cadastro de  diversos ");
+         consultaGrafico();
+         
     }
 
     OutrosGraficoControle  ogc = new OutrosGraficoControle();
@@ -37,6 +39,19 @@ public class OutrosGrafico extends FormPadrao {
 
     @Override
     public void consultaGrafico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        modelo.setNumRows(0);
+        ogc.consultarControle(jtfConsulta.getText(),modelo);
+    }
+
+    @Override
+    public void atualizarformulario() {
+        jtfId.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
+        jtfDescricao.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        jtfValor.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+    }
+
+    @Override
+    public void excluirVisao() {
+        ogc.excluircontrole(Integer.parseInt(jtfId.getText()));
     }
 }

@@ -7,6 +7,9 @@ package controle;
 import Interface.InterfaceControle;
 import Modelo.OutrosGraficoModelo;
 import dao.OutrosGraficoDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,7 @@ public class OutrosGraficoControle implements InterfaceControle {
          if("".equals(valores[0])){
             ogm.setId(0);
         }else {
-             ogm.setId((int)valores[0]);
+             ogm.setId(Integer.parseInt(valores[0].toString()));
         }
         ogm.setDescricao((String)valores[1]);
         ogm.setValor(Float.parseFloat((String) valores[2]));
@@ -32,6 +35,16 @@ public class OutrosGraficoControle implements InterfaceControle {
 
     @Override
     public void excluircontrole(int id) {
+         ogd.excluirDao(id);
+    }
+
+    @Override
+    public void consultarControle(Object... valores) {
+        try {
+            ogd.consultarDao(valores);
+        } catch (SQLException ex) {
+            Logger.getLogger(ItensGraficoControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

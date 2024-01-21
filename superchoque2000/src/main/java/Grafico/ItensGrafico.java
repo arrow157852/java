@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class ItensGrafico extends FormPadrao{
    public ItensGrafico(){
     setTitle("cadastro de itens");
+    consultaGrafico();
     
    }
 
@@ -38,6 +39,19 @@ public class ItensGrafico extends FormPadrao{
 
     @Override
     public void consultaGrafico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        modelo.setNumRows(0);
+        igc.consultarControle(jtfConsulta.getText(),modelo);
+    }
+
+    @Override
+    public void atualizarformulario() {
+        jtfId.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
+        jtfDescricao.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        jtfValor.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+    }
+
+    @Override
+    public void excluirVisao() {
+        igc.excluircontrole(Integer.parseInt(jtfId.getText()));    
     }
 }

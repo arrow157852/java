@@ -3,6 +3,9 @@ package controle;
 import Interface.InterfaceControle;
 import Modelo.MaodeObraGraficoModelo;
 import dao.MaodeObraGraficoDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,7 +25,7 @@ public class MaodeObraGraficoControle implements InterfaceControle {
         if("".equals(valores[0])){
        mogm.setId(0);
         }else {
-             mogm.setId((int)valores[0]);
+             mogm.setId(Integer.parseInt(valores[0].toString()));
         }
         mogm.setDescricao((String)valores[1]);
         mogm.setValor(Float.parseFloat((String) valores[2]));
@@ -32,6 +35,17 @@ public class MaodeObraGraficoControle implements InterfaceControle {
 
     @Override
     public void excluircontrole(int id) {
+         mogd.excluirDao(id);
+    }
+
+    @Override
+    public void consultarControle(Object... valores) {
+        try {
+            mogd.consultarDao(valores);
+        } catch (SQLException ex) {
+            Logger.getLogger(ItensGraficoControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
 }

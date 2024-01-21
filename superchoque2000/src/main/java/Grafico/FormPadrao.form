@@ -196,7 +196,7 @@
                       <Component id="jtfDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtfValor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                  <EmptySpace pref="60" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -238,6 +238,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jpnConsulta">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnConsultaMouseClicked"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -249,7 +252,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jlbConsulta" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="tfdConsulta" min="-2" pref="584" max="-2" attributes="0"/>
+                  <Component id="jtfConsulta" min="-2" pref="584" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -260,9 +263,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlbConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfdConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="149" max="32767" attributes="0"/>
+                  <EmptySpace pref="219" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -273,10 +276,15 @@
             <Property name="text" type="java.lang.String" value="Consulta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdConsulta">
+        <Component class="javax.swing.JTextField" name="jtfConsulta">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdConsultaActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtfConsultaMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfConsultaActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfConsultaKeyTyped"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

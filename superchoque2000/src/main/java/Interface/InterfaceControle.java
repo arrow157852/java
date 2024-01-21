@@ -11,4 +11,6 @@ package Interface;
 public interface InterfaceControle {
     public void salvarControle(Object... valores);
     public void excluircontrole(int id);
+    public void consultarControle(Object... valores);
+   
 }

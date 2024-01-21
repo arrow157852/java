@@ -10,7 +10,7 @@ import util.PosicaoFormulario;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
+ 
 /**
  *
  * @author bielh
@@ -49,7 +49,6 @@ public class principal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jmOrcamento = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jmAterramento = new javax.swing.JMenuItem();
         jmLaudo = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
@@ -150,16 +149,6 @@ public class principal extends javax.swing.JFrame {
         });
         jmOrcamento.add(jMenuItem5);
 
-        jmAterramento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jmAterramento.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\aterramento.png")); // NOI18N
-        jmAterramento.setText("Aterramento");
-        jmAterramento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmAterramentoActionPerformed(evt);
-            }
-        });
-        jmOrcamento.add(jmAterramento);
-
         jmLaudo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jmLaudo.setIcon(new javax.swing.ImageIcon("C:\\programacao\\java\\superchoque2000\\src\\main\\java\\img\\Laudo.png")); // NOI18N
         jmLaudo.setText("Laudo");
@@ -242,13 +231,6 @@ public class principal extends javax.swing.JFrame {
         }); 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jmAterramentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAterramentoActionPerformed
-        SwingUtilities.invokeLater(() -> {
-        Aterramento tela ;
-        form.abrirFormulario(tela= new Aterramento() , jDesktop);
-        });        // TODO add your handling code here:
-    }//GEN-LAST:event_jmAterramentoActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -292,7 +274,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JMenuItem jmAterramento;
     private javax.swing.JMenu jmCadastramento;
     private javax.swing.JMenuItem jmLaudo;
     private javax.swing.JMenu jmOrcamento;
